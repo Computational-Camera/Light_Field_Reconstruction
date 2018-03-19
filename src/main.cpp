@@ -104,7 +104,8 @@ int main(int argc, const char **argv){
     Mat multiview;
     decode(img_colour, multiview, grid, para);
     resize(multiview, multiview, Size(640*9,640*9), INTER_CUBIC);
-    imwrite(argv[5], multiview*16);
+    //cout<<multiview/16<<endl;
+    imwrite(argv[5], multiview/16);
 
     cout<<"================== Finish ======================="<<endl;
     return 0;

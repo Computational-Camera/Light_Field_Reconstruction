@@ -1,6 +1,6 @@
 # Light-Field-Reconstruction
 
-![sample](https://github.com/computational-camera/Light-Field-Reconstruction/blob/master/img/photo.jpg)
+![sample](.img/photo.jpg)
 
 This project contains implementations paper titled ["Multi-view Image Restoration From Plenoptic Raw Images" ](https://link.springer.com/chapter/10.1007/978-3-319-16631-5_1) ACCV 2014, Emerging Topics In Image Restoration and Enhancement Workshop.
 

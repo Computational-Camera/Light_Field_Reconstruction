@@ -1,6 +1,6 @@
 # Light-Field-Reconstruction
 
-![sample](.img/photo.jpg)
+![sample](https://github.com/Computational-Camera/Light_Field_Reconstruction/blob/master/img/intro.jpg)
 
 This project contains implementations paper titled ["Multi-view Image Restoration From Plenoptic Raw Images" ](https://link.springer.com/chapter/10.1007/978-3-319-16631-5_1) ACCV 2014, Emerging Topics In Image Restoration and Enhancement Workshop.
 
@@ -20,7 +20,19 @@ Dataset can be obtained from this  [link](https://www.dropbox.com/sh/neojqgr58hg
 
 Besides the approach mentioned in the paper, we also implement a function to estimate the diameter of the microlens.  As shown in the figure below, the regular geometric structure of the hexagonal microlens array results in six high peaks distributed uniformly around the zero frequency. Although the spectrum of the content image is contaminated by the content changes inside each microlens image, the six high peak frequency components are preserved and can be used to determine the size of the hexagonal grid.
 
+![sample](https://github.com/Computational-Camera/Light_Field_Reconstruction/blob/master/img/ml_fft.jpg)
 
+
+### Building on Ubuntu
+The code depends OpenCV library (Version>3.0).
+Use qmake to generate the makefile
+```
+./qmake
+```
+Compile the code
+```
+make -j4
+```
 
 
 

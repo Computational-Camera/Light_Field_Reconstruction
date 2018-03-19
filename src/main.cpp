@@ -44,13 +44,16 @@ using namespace std;
 using namespace cv;
 
 
-/* centroid algorithms 
+/* 
 usage:  
-./bin/centre ./data/office_ref.raw  ./data/office.raw ./configs/config1.xml ./output/office.jpg
-argv[1]                             argv[2]            argv[3]          
+./bin/centre 0          ./data/office_ref.raw  ./data/office.raw ./configs/config1.xml ./output/office.jpg
+           argv[1]             argv[2]            argv[3]                 argv[4]           argv[5]  
 
-argv[1]  reference image name
-argv[2]  content   image name 
+argv[1]  Reconstruction method  0: blind, 1 non-blind
+argv[2]  reference raw image file 
+argv[3]  content image file
+argv[4]  configuration file
+argv[5]  output multiview image
 
 */
 
@@ -61,15 +64,21 @@ int main(int argc, const char **argv){
 
     PARA para;
     GRID grid;
-    int option = 1;
+    
+    if (argc!=6){
+        cout<<" Check Your Input Parameters "<<endl;
+        return false;   
+    }
+    
+    int option = atoi(argv[1]);
 
     cout<<"===========  Loading the Raw Data   ============="<<endl;
-    config_read(argv[3], &para);
+    config_read(argv[4], &para);
     ref_bayer=Mat(para.RAW_H,para.RAW_W,CV_16U);
     img_bayer=Mat(para.RAW_H,para.RAW_W,CV_16U);
         
-    raw2buf(argv[1], ref_bayer);
-    raw2buf(argv[2], img_bayer);
+    raw2buf(argv[2], ref_bayer);
+    raw2buf(argv[3], img_bayer);
     cvtColor(img_bayer, img_colour, CV_BayerRG2BGR);
 
     cout<<"===========  Building the Grid   ================"<<endl;
@@ -84,20 +93,20 @@ int main(int argc, const char **argv){
         build_grid_blind(img_bayer, &para, &grid);  
     }
 
-    cout<<"==========  Vignetting Modeling   ==============="<<endl;
+    cout<<"============ Vignetting Modeling  ==============="<<endl;
     imgc  = Mat(para.RAW_H,para.RAW_W, CV_16U);
     devig_simple(img_bayer, ref_bayer, imgc);
 
     cout<<"========== Light Field Reconstruction  =========="<<endl;
 
     cvtColor(ref_bayer, ref_colour, CV_BayerRG2BGR);
-    cvtColor(imgc,      img_colour, CV_BayerRG2BGR);
+    cvtColor(imgc,      img_colour, CV_BayerRG2BGR);      
     Mat multiview;
     decode(img_colour, multiview, grid, para);
     resize(multiview, multiview, Size(640*9,640*9), INTER_CUBIC);
-    imwrite(argv[4], multiview/16);
+    imwrite(argv[5], multiview*16);
 
-    cout<<"==================  Finish ======================"<<endl;
+    cout<<"================== Finish ======================="<<endl;
     return 0;
 }
 

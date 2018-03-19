@@ -156,7 +156,7 @@ inline bool gen_score_map(Mat img, Mat& score, float D){
  */
 bool gen_pos(vector<Point2d>& pos, Rect ROI, float magnification, int inc){ //no maginification
 
-	float hh = magnification;
+    float hh = magnification;
     float vv = magnification;
     //cout<<   ROI.y <<" "<<ROI.height<<" "<<ROI.x<<" "<<ROI.width <<endl;
 	for(int j=ROI.y; j<ROI.y+ROI.height; j=j+inc){
@@ -186,7 +186,7 @@ bool gen_pos2(vector<Point2d> pos,
 
     pos2.resize(pos.size());
     
-	for(size_t k=0; k<pos.size(); k++){
+    for(size_t k=0; k<pos.size(); k++){
 
         pos2[k].x= -para->RAW_W*4/2 + (pos[k].x*tran_vec[0]+tran_vec[2]);
 		pos2[k].y=  para->RAW_H*4/2 - (pos[k].y*tran_vec[4]+tran_vec[5]);							
@@ -237,10 +237,10 @@ bool brute_force_search_2d (int* itn,
 		    for(size_t kk=0;kk<pos.size();kk++){	    		
                 pos_2d[kk].x= pos[kk].x*tran_vec_temp[0]+pos[kk].y*tran_vec_temp[1]+tran_vec_temp[2];
                 pos_2d[kk].y= pos[kk].x*tran_vec_temp[3]+pos[kk].y*tran_vec_temp[4]+tran_vec_temp[5];
-			    next=next+img.at<float>(round(pos_2d[kk].y), round(pos_2d[kk].x));
+                next=next+img.at<float>(round(pos_2d[kk].y), round(pos_2d[kk].x));
 		    }
-			cost_mat.at<float>(g+itn[2],h+itn[5])=next;		
-		    vector<Point2d>().swap(pos_2d);
+            cost_mat.at<float>(g+itn[2],h+itn[5])=next;		
+            vector<Point2d>().swap(pos_2d);
 	    }
     }
     

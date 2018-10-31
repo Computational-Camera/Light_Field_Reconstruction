@@ -15,7 +15,7 @@ If you use this code/model for your research, please cite the following paper:
     year   = {2014}
 }
 ```
-Dataset can be obtained from this  [link](https://www.dropbox.com/sh/neojqgr58hgt97t/AAB1qU2gHvC3uErU8B52FEkGa?dl=0)
+Dataset can be obtained from this  [link](https://www.dropbox.com/s/gxgvh5pywe99xsc/Light-Field-Reconstruction.zip)
 
 
 Besides the approach mentioned in the paper, we also implement a function to estimate the diameter of the microlens.  As shown in the figure below, the regular geometric structure of the hexagonal microlens array results in six high peaks distributed uniformly around the zero frequency. Although the spectrum of the content image is contaminated by the content changes inside each microlens image, the six high peak frequency components are preserved and can be used to determine the size of the hexagonal grid.

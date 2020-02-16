@@ -216,5 +216,41 @@ void load_hdf5_attri(const char* file_name,
     H5Fclose( file_id );
  }
 
+template<class TYPE>  
+void hdf52mat3 ( const char* file_name, 
+                const char* file_dataset_name,
+                hid_t d_type,
+                TYPE,         
+                Mat& data){
+
+    hid_t       file_id, dataset_id; 
+    file_id      = H5Fopen(file_name, H5F_ACC_RDWR, H5P_DEFAULT);
+    dataset_id   = H5Dopen(file_id, file_dataset_name,H5P_DEFAULT);
+    hid_t dspace = H5Dget_space(dataset_id);
+    const int ndims = H5Sget_simple_extent_ndims(dspace);
+    hsize_t dims[ndims];
+    H5Sget_simple_extent_dims(dspace, dims, NULL);   
+    // Read the dataset. 
+    cout<<dims[0]<<" "<<dims[1]<<" "<<dims[2]<<endl;
+    cout<<data.rows<<" "<<data.cols<<endl;
+    //assert(dims[0] == data.cols);
+    //assert(dims[1] == data.rows);
+    //assert(dims[2] == 3);
+    
+    TYPE* data_vec = new TYPE[dims[0]*dims[1]];
+    H5Dread(dataset_id, d_type, H5S_ALL, H5S_ALL, H5P_DEFAULT, data_vec);
+
+    TYPE* temp_ptr = data_vec;
+    //cout<<dims[0]<<" "<<dims[1]<<endl;
+    for (int j = 0; j <dims[0]; j++){
+        for (int i = 0; i < dims[1]; i++)
+           data.at<TYPE>(j,i)= *temp_ptr++;
+    }
+
+    H5Dclose(dataset_id);
+    H5Fclose(file_id);
+    delete[] data_vec;
+
+}
 #endif
 
